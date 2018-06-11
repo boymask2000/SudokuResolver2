@@ -1,0 +1,14 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <PreferenceCategory android:title="@string/pref_update_setting">
+
+        <ListPreference
+            android:key="Livello"
+            android:entries="@array/livelli"
+
+            android:entryValues="@array/livelli"
+            android:title="@string/livello" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

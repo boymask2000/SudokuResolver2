@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="livelli">
+        <item name="4">Facile</item>
+        <item name="7">Medio</item>
+        <item name="9">Difficile</item>
+        <item name="12">Ultra difficile</item>
+    </string-array>
+
+
+</resources>

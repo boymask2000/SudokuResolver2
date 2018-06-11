@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/MENU_0"
+        android:showAsAction="ifRoom"
+        android:title="Opzioni"
+        tools:ignore="AppCompatResource">
+        <menu>
+
+            <item
+                android:id="@+id/viewFinal"
+                android:showAsAction="ifRoom"
+                android:title="@string/vedi_immagine"
+                tools:ignore="AppCompatResource" />
+            <item
+                android:id="@+id/solve"
+                android:showAsAction="ifRoom"
+                android:title="@string/risolvi"
+                tools:ignore="AppCompatResource" />
+            <item
+                android:id="@+id/opzioni"
+                android:showAsAction="ifRoom"
+                android:title="@string/opzioni"
+                tools:ignore="AppCompatResource" />
+        </menu>
+    </item>
+
+</menu>
