@@ -5,9 +5,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 public class MainActivity extends Activity {
@@ -19,12 +23,14 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Heap.setMainActivity(this);
-        LinearLayout lay = (LinearLayout) findViewById(R.id.layout);
+        LinearLayout lay =  findViewById(R.id.board);
 
         surface = new SurfacePanel(getBaseContext(), null);
-
         lay.addView(surface);
-    }
+
+
+        }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

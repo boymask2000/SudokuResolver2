@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.SystemClock;
 import android.util.AttributeSet;
@@ -25,8 +26,8 @@ import java.util.Random;
 public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback {
     private final Context context;
 
-    private final Bitmap resizedPhotoBitMap;
-    private final List<Chunk> lista;
+
+
 
 
     private MyThread mythread;
@@ -39,6 +40,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 
     private Chunk first = null;
     private int i = 0;
+    private Paint mPaint = new Paint();
 
     public SurfacePanel(Context ctx, AttributeSet attrSet) {
         super(ctx, attrSet);
@@ -47,14 +49,11 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 
         getDims();
 
-        Bitmap photoBitMap = Heap.getBitmap();
+
 
         SurfaceHolder holder = getHolder();
-        resizedPhotoBitMap = getResizedBitmap(photoBitMap);
-        Heap.setBitmap(resizedPhotoBitMap);
-        holder.addCallback(this);
-        lista = randomize(board.prepareImage(resizedPhotoBitMap));
 
+        holder.addCallback(this);
     }
 
     private List<Chunk> randomize(List<Chunk> ll) {
@@ -83,89 +82,24 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 
 
     private void solve() throws InterruptedException {
-        if (i >= lista.size()) return;
-        Chunk c = lista.get(i++);
-        //   for (Chunk c : lista) {
 
-        int pos = c.getPosCorretta();
-        if (pos != c.getPosAttuale()) {
-            for (Chunk d : lista) {
-                if (d.getPosAttuale() == pos) {
 
-                    MotionEvent motionEvent1 = MotionEvent.obtain(
-                            SystemClock.uptimeMillis(),
-                            SystemClock.uptimeMillis(),
-                            MotionEvent.ACTION_DOWN,
-                            c.getX() + 1,
-                            c.getY() + 1,
-                            0
-                    );
-
-                    this.dispatchTouchEvent(motionEvent1);
-
-                    Thread.sleep(1000);
-                    MotionEvent motionEvent2 = MotionEvent.obtain(
-                            SystemClock.uptimeMillis(),
-                            SystemClock.uptimeMillis(),
-                            MotionEvent.ACTION_DOWN,
-                            d.getX() + 1,
-                            d.getY() + 1,
-                            0
-                    );
-
-                    this.dispatchTouchEvent(motionEvent2);
-
-                    break;
-                }
-            }
-        }
     }
 
+    //***************************************************************************************
     void doDraw(Canvas canvas) {
-
-
-        List<Chunk> ll = new ArrayList<Chunk>();
-
-        for (Chunk c : lista) {
-            c.draw(canvas);
-            if (c.isSelected()) ll.add(c);
+        int step = screenWidth / 9;
+        for(int i=0; i<=9; i++) {
+            canvas.drawLine(i * step, 0, i * step, screenWidth, mPaint);
+            canvas.drawLine(0, i * step, screenWidth,i * step, mPaint);
         }
-        for (Chunk c : ll) {
-            c.draw(canvas);
-
-        }
-
-
-        if (goSolve) try {
-            solve();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-       /* for (Moving m : transiti) {
-            m.nextStep();
-        }*/
     }
 
     public void goSolve() {
         goSolve = true;
     }
 
-    public Bitmap getResizedBitmap(Bitmap bm) {
-        int width = bm.getWidth();
-        int height = bm.getHeight();
-        float scaleWidth = ((float) screenWidth) / width;
-        float scaleHeight = ((float) screenHeight) / height;
-        // CREATE A MATRIX FOR THE MANIPULATION
-        Matrix matrix = new Matrix();
-        // RESIZE THE BIT MAP
-        matrix.postScale(scaleWidth, scaleHeight);
 
-        // "RECREATE" THE NEW BITMAP
-        Bitmap resizedBitmap = Bitmap.createBitmap(
-                bm, 0, 0, width, height, matrix, false);
-        //    bm.recycle();
-        return resizedBitmap;
-    }
 
     public int getStatusBarHeight() {
         int result = 0;
@@ -291,17 +225,12 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
     }
 
     private void checkFine() {
-        for (Chunk c : lista) {
-            if (c.getPosAttuale() != c.getPosCorretta()) return;
-        }
+
         PopupMessage.info(context, "Bravo! Completato in " + numMosse + " mosse");
     }
 
     public Chunk getChunk(float x, float y) {
-        for (Chunk c : lista) {
-            if (c.isInside(x, y))
-                return c;
-        }
+
         return null;
     }
 
