@@ -28,29 +28,5 @@ public class Board {
     }
 
 
-    public List<Chunk> prepareImage(Bitmap bit) {
-        NROW = (int) (NCOL * Heap.getFact());
-        List<Chunk> lista = new ArrayList<Chunk>();
 
-        chunkHeight = bit.getHeight() / NROW;
-        chunkWidth = bit.getWidth() / NCOL;
-
-        int pos = 0;
-        //xCoord and yCoord are the pixel positions of the image chunks
-        int yCoord = 0;
-        for (int x = 0; x < NROW; x++) {
-            int xCoord = 0;
-            for (int y = 0; y < NCOL; y++) {
-                Bitmap b = Bitmap.createBitmap(bit, xCoord, yCoord, chunkWidth, chunkHeight);
-                Chunk c = new Chunk(b, xCoord, yCoord, chunkWidth, chunkHeight);
-                c.setPosCorretta(pos);
-                c.setPosAttuale(pos++);
-                //  lista.add(Bitmap.createBitmap(bit, xCoord, yCoord, chunkWidth, chunkHeight));
-                lista.add(c);
-                xCoord += chunkWidth;
-            }
-            yCoord += chunkHeight;
-        }
-        return lista;
-    }
 }

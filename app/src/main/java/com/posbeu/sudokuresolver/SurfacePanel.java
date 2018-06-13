@@ -16,6 +16,8 @@ import android.view.SurfaceView;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
 
+import com.posbeu.sudokuresolver.core.Table;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -25,9 +27,7 @@ import java.util.Random;
  */
 public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback {
     private final Context context;
-
-
-
+    private final MainActivity mainActivity;
 
 
     private MyThread mythread;
@@ -38,46 +38,22 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
     private int numMosse = 0;
     private boolean goSolve = false;
 
-    private Chunk first = null;
+
     private int i = 0;
     private Paint mPaint = new Paint();
 
-    public SurfacePanel(Context ctx, AttributeSet attrSet) {
+    public SurfacePanel(Context ctx, AttributeSet attrSet, MainActivity mainActivity) {
         super(ctx, attrSet);
         context = ctx;
+        this.mainActivity=mainActivity;
         board = new Board(context);
 
         getDims();
 
 
-
         SurfaceHolder holder = getHolder();
 
         holder.addCallback(this);
-    }
-
-    private List<Chunk> randomize(List<Chunk> ll) {
-
-        Random rand = new Random(100);
-        List<Chunk> out = new ArrayList<Chunk>();
-        List<Integer> indexes = new ArrayList<>();
-        //List<Integer> values = new ArrayList<Integer>();
-        for (int i = 0; i < ll.size(); i++) {
-            indexes.add(i);
-        }
-        int count = 0;
-        while (!indexes.isEmpty()) {
-            int ii = (int) (Math.random() * indexes.size());
-
-            int index = indexes.get(ii);
-
-            indexes.remove(ii);
-            out.add(ll.get(index));
-            count++;
-            if (count % 2 == 0)
-                scambia(out.get(count - 1), out.get(count - 2), false);
-        }
-        return out;
     }
 
 
@@ -89,16 +65,19 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
     //***************************************************************************************
     void doDraw(Canvas canvas) {
         int step = screenWidth / 9;
-        for(int i=0; i<=9; i++) {
+        for (int i = 0; i <= 9; i++) {
             canvas.drawLine(i * step, 0, i * step, screenWidth, mPaint);
-            canvas.drawLine(0, i * step, screenWidth,i * step, mPaint);
+            canvas.drawLine(0, i * step, screenWidth, i * step, mPaint);
         }
+
+        Table table = mainActivity.getTable();
+        table.draw(canvas,mPaint,screenWidth);
+
     }
 
     public void goSolve() {
         goSolve = true;
     }
-
 
 
     public int getStatusBarHeight() {
@@ -163,75 +142,32 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
     }
 
 
-    private void scambia(Chunk c1, Chunk c2, boolean slow) {
-
-        int xf = c1.getX();
-        int yf = c1.getY();
-        int posf = c1.getPosAttuale();
-        c1.setX(c2.getX());
-        c1.setY(c2.getY());
-        c1.setPosAttuale(c2.getPosAttuale());
-        c2.setX(xf);
-        c2.setY(yf);
-        c2.setPosAttuale(posf);
-    }
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
-
 
         float x = event.getX();
         float y = event.getY();
 
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                numMosse++;
-                Chunk p = getChunk(x, y);
-                if (p == null) return true;
-                p.setSelected(true);
-                if (first == null) first = p;
-                else {
-                    if (first == p) {
-                        p.setSelected(false);
-                        first.setSelected(false);
-                        return true;
-                    }
+        Pair cella = getCella(x, y);
 
-                    try {
-                        Thread.sleep(700);
-                    } catch (InterruptedException e) {
-                    }
-                    scambia(first, p, true);
-                    checkFine();
-                    p.setSelected(false);
-                    first.setSelected(false);
-                    first = null;
-                }
+        Heap.selectedCell = cella;
 
-                break;
-            case MotionEvent.ACTION_UP:
-
-                break;
-            case MotionEvent.ACTION_MOVE:
-
-
-                break;
-            default:
-                break;
-        }
+//mainActivity.getSudoku().setClick((int)x,(int)y);
+        mainActivity.getTable().setSelectedCell(cella.getX(),cella.getY());
 
         return true;
     }
 
-    private void checkFine() {
+    private Pair getCella(float x, float y) {
+        int posx = (int) (x * 9 / screenWidth);
+        int posy = (int) (y * 9 / screenWidth);
 
-        PopupMessage.info(context, "Bravo! Completato in " + numMosse + " mosse");
-    }
+        if (posx < 0 || posx > 8) return null;
+        if (posy < 0 || posy > 8) return null;
 
-    public Chunk getChunk(float x, float y) {
 
-        return null;
+
+        return new Pair(posx, posy);
     }
 
     @Override
@@ -243,4 +179,6 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
         mythread.start();
     }
 
+    public void update() {
+    }
 }

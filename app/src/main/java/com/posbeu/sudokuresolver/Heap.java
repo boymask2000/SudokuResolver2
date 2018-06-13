@@ -12,6 +12,7 @@ public class Heap {
     private static MainActivity activity;
     private static float fact;
     private static Board board;
+    public static Pair selectedCell;
 
 
     public static Bitmap getBitmap() {
