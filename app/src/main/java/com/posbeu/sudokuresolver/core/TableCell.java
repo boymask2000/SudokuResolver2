@@ -70,7 +70,7 @@ public class TableCell {
 	}
 
 	public void setCurrentVal(int currentVal)  {
-		if(valMax==valMin)System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
+
 		this.currentVal = currentVal;
 
 		empty = false;

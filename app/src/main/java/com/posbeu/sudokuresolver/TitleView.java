@@ -26,7 +26,7 @@ public class TitleView extends View {
     public TitleView(Context context) {
         super(context);
         myContext = context;
-        titleGraphic = BitmapFactory.decodeResource(getResources(), R.drawable.gallerypuzzle);
+        titleGraphic = BitmapFactory.decodeResource(getResources(), R.drawable.sudoku);
         playButtonUp = BitmapFactory.decodeResource(getResources(), R.drawable.play_button_up);
         playButtonDown = BitmapFactory.decodeResource(getResources(), R.drawable.play_button_down);
     }

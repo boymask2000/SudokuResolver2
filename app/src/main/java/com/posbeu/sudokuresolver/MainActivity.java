@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Layout;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,12 +15,19 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 
+import com.google.android.gms.ads.MobileAds;
 import com.posbeu.sudokuresolver.core.Sudoku;
 import com.posbeu.sudokuresolver.core.Table;
 import com.posbeu.sudokuresolver.core.TableCell;
 
+import static com.google.android.gms.ads.MobileAds.initialize;
+
 public class MainActivity extends Activity {
+
+    private RelativeLayout mainLayout;
 
     public SurfacePanel getSurface() {
         return surface;
@@ -34,7 +43,15 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+
+        setContentView(R.layout.activity_main1);
+        mainLayout = (RelativeLayout) findViewById(R.id.layout);
+
+        MobileAds.initialize(this, "ca-app-pub-6114671792914206/6245333638");
+
+
+
         Heap.setMainActivity(this);
         LinearLayout lay = findViewById(R.id.board);
 
@@ -51,11 +68,12 @@ public class MainActivity extends Activity {
         if( Heap.selectedCell==null)return;
         TableCell p = Heap.selectedCell;
         table.setFixed(p.getX(),p.getY(), n);
+
     }
 
     private void handleButtons() {
 
-        Button b1 = findViewById(R.id.b1);
+     /*   Button b1 = findViewById(R.id.b1);
         b1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 setFixedVal(1);
@@ -108,7 +126,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 setFixedVal(9);
             }
-        });
+        });*/
 
 
         Button solve = findViewById(R.id.solve);
@@ -137,7 +155,7 @@ public class MainActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.game_menu, menu);
+ //       inflater.inflate(R.menu.game_menu, menu);
         return true;
     }
 

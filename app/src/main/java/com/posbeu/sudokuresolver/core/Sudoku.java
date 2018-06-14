@@ -55,8 +55,7 @@ public class Sudoku {
         TableCell cell = table.getCell(i, j);
         int vMin = cell.getValMin();
         int vMax = cell.getValMax();
-        if( vMin==vMax)
-            System.out.println("dddd");
+
 
         for (int k = vMin; k <= vMax; k++) {
             cell.setCurrentVal(k);
@@ -72,8 +71,7 @@ public class Sudoku {
                 if (v == 80) {
                     main.update();
                     solved = true;
-                    System.out.println("FOUND!!!!!!!!!!!!!!!!!!");
-                    table.dump();
+
                 } else
                     solve(start + 1);
             }
