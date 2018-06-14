@@ -9,77 +9,80 @@ import java.util.List;
 
 public class Sudoku {
 
-	private Table table = new Table();
-	private List<Pair> lista;
-	private MainActivity main;
+    private Table table ;
+    private List<Pair> lista;
+    private MainActivity main;
 
-	public Sudoku(MainActivity main) {
-		this.main = main;
-		table.setMain(main);
+    public Sudoku(MainActivity main) {
+        this.main = main;
+        table=main.getTable();
+        table.setMain(main);
 
-		lista = buildPairs();
+        lista = buildPairs();
 //
 //		table.setFixed(0, 0, 5);
 
 
-	}
+    }
 
-	public void go() { solved=false;
-		solve(0);
-	}
+    public void go() {
+        solved = false;
 
-	private List<Pair> buildPairs() {
-		List<Pair> lista = new ArrayList<Pair>();
-		for (int i = 0; i < Table.getNumrows(); i++)
-			for (int j = 0; j < Table.getNumcols(); j++)
-				lista.add(new Pair(i, j));
+        solve(0);
+        main.update();
+    }
 
-		return lista;
-	}
+    private List<Pair> buildPairs() {
+        List<Pair> lista = new ArrayList<Pair>();
+        for (int i = 0; i < Table.getNumrows(); i++)
+            for (int j = 0; j < Table.getNumcols(); j++)
+                lista.add(new Pair(i, j));
 
-	int ciclo = 0;
-boolean solved=false;
-	private void solve(int start) {
-		ciclo++;
-		// try {
-		// Thread.sleep(10);
-		// } catch (InterruptedException e) {
-		// e.printStackTrace();
-		// }
+        return lista;
+    }
 
-		int v = start;
+    int ciclo = 0;
+    boolean solved = false;
 
-		// System.out.println("v:" +v);
-		int i = lista.get(v).getX();
-		int j = lista.get(v).getY();
+    private void solve(int start) {
+        ciclo++;
 
-		TableCell cell = table.getCell(i, j);
-		int vMin = cell.getValMin();
-		int vMax = cell.getValMax();
+        int v = start;
 
-		for (int k = vMin; k <= vMax; k++) {
-			cell.setCurrentVal(k);
-			if (ciclo == 1000) {
-				ciclo = 0;
-				main.update();
-			}
+        int i = lista.get(v).getX();
+        int j = lista.get(v).getY();
 
-			if (table.check()) {
+        TableCell cell = table.getCell(i, j);
+        int vMin = cell.getValMin();
+        int vMax = cell.getValMax();
+        if( vMin==vMax)
+            System.out.println("dddd");
 
-				if (v == 80) {
-					main.update();
-					solved=true;
-					System.out.println("FOUND!!!!!!!!!!!!!!!!!!");
+        for (int k = vMin; k <= vMax; k++) {
+            cell.setCurrentVal(k);
 
-				} else
-					solve(start + 1);
-			}
-			if(solved)return;
+            if (ciclo == 1000) {
+                ciclo = 0;
 
-			cell.setEmpty();
-		}
+                main.update();
+            }
 
-	}
+            if (table.check()) {
+
+                if (v == 80) {
+                    main.update();
+                    solved = true;
+                    System.out.println("FOUND!!!!!!!!!!!!!!!!!!");
+                    table.dump();
+                } else
+                    solve(start + 1);
+            }
+            if (solved) return;
+
+            cell.setEmpty();
+        }
+
+    }
 
 
 
@@ -92,26 +95,24 @@ boolean solved=false;
 
 	}*/
 
-	public void setSelectedValue(int i) {
-		table.setSelectedValue(i);
-	}
 
-	public void setSetFree() {
-		table.setFree();
 
-	}
+    public void setSetFree() {
+        table.setFree();
 
-	public void setClean() {
-		table.setClean();
+    }
 
-	}
+    public void setClean() {
+        table.setClean();
 
-	public void cleanAll() {
-		table.cleanAll();
+    }
 
-	}
+    public void cleanAll() {
+        table.cleanAll();
 
-	public void update() {
-	}
+    }
+
+    public void update() {
+    }
 }
 

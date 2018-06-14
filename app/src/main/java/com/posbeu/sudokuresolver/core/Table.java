@@ -1,9 +1,11 @@
 package com.posbeu.sudokuresolver.core;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+import com.posbeu.sudokuresolver.Heap;
 import com.posbeu.sudokuresolver.MainActivity;
 
 
@@ -134,9 +136,11 @@ public class Table {
         int yy = y / 50;
         return table[xx][yy];
     }
+
     public void setSelectedCell(int x, int y) {
 
-        selectedCell= table[x][y];
+        selectedCell = table[x][y];
+        Heap.selectedCell = selectedCell;
     }
 
     public void setSelectedCell(TableCell c) {
@@ -181,21 +185,51 @@ public class Table {
 
     public void draw(Canvas canvas, Paint mPaint, int screenWidth) {
         //  setTextSizeForWidth(mPaint,300, "1");
-        mPaint.setTextSize(25);
+        int cSize = screenWidth / 9;
+        mPaint.setTextSize(cSize);
         int fattX = screenWidth / 9;
         int fattY = screenWidth / 9;
         for (int i = 0; i < 9; i++)
             for (int j = 0; j < 9; j++) {
                 TableCell cell = table[i][j];
-                if (cell.isEmpty())
-                    canvas.drawText("", i * fattX + fattX / 2, j * fattY + fattY / 2, mPaint);
-                else
-                    canvas.drawText("" + cell.getCurrentVal(), i * fattX + fattX / 2, j * fattY + fattY / 2, mPaint);
 
-    if( selectedCell!=null && selectedCell.equals(cell))
-        canvas.drawCircle(i * fattX + fattX / 2, j * fattY + fattY / 2,10, mPaint);
+                int x = i * fattX + 2;
+                int y = j * fattY + 2;
+                fill(canvas, screenWidth, x, y, Color.WHITE);
+
+
+                if (selectedCell != null && selectedCell.equals(cell)) {
+                    x = i * fattX + 2;
+                    y = j * fattY + 2;
+
+                    fill(canvas, screenWidth, x, y, Color.GRAY);
+                }
+
+
+                if (!cell.isEmpty())
+                {
+
+                    canvas.drawText("" + cell.getCurrentVal(), i * fattX + 2, (j + 1) * fattY - 4, mPaint);
+                }
             }
     }
 
+    private void fill(Canvas canvas, int screenWidth, int x, int y, int color) {
+        int size = screenWidth / 9 - 4;
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(color);
+        canvas.drawRect(x, y, x + size, y + size, paint);
+    }
+
+    public void dump() {
+        for (int i = 0; i < 9; i++)
+            for (int j = 0; j < 9; j++) {
+
+                TableCell cell = table[i][j];
+                System.out.print("-"+i+" "+j+" :"+ cell.getCurrentVal());
+
+            }System.out.println();
+    }
 
 }

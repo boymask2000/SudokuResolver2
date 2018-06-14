@@ -3,6 +3,7 @@ package com.posbeu.sudokuresolver;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
@@ -30,6 +31,10 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
     private final MainActivity mainActivity;
 
 
+    public MyThread getThread() {
+        return mythread;
+    }
+
     private MyThread mythread;
     private int screenWidth;
     private int screenHeight;
@@ -45,7 +50,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
     public SurfacePanel(Context ctx, AttributeSet attrSet, MainActivity mainActivity) {
         super(ctx, attrSet);
         context = ctx;
-        this.mainActivity=mainActivity;
+        this.mainActivity = mainActivity;
         board = new Board(context);
 
         getDims();
@@ -62,6 +67,16 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 
     }
 
+    @Override
+    protected void onDraw(Canvas canvas) {
+
+        doDraw(canvas);
+    }
+
+    void doDraw1(Canvas canvas) {
+
+    }
+
     //***************************************************************************************
     void doDraw(Canvas canvas) {
         int step = screenWidth / 9;
@@ -69,10 +84,22 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
             canvas.drawLine(i * step, 0, i * step, screenWidth, mPaint);
             canvas.drawLine(0, i * step, screenWidth, i * step, mPaint);
         }
+        fill(canvas, screenWidth, 3 * step);
+        fill(canvas, screenWidth, 6 * step);
 
         Table table = mainActivity.getTable();
-        table.draw(canvas,mPaint,screenWidth);
+        table.draw(canvas, mPaint, screenWidth);
 
+    }
+
+
+    private void fill(Canvas canvas, int screenWidth, int x) {
+        int size = screenWidth;
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.BLACK);
+        canvas.drawRect(x - 1, 0, x + 2, screenWidth, paint);
+        canvas.drawRect(0, x - 1, screenWidth, x + 2, paint);
     }
 
     public void goSolve() {
@@ -150,10 +177,10 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 
         Pair cella = getCella(x, y);
 
-        Heap.selectedCell = cella;
+        Heap.selectedCell = mainActivity.getTable().getCellByCoord(cella.getX(), cella.getY());
 
 //mainActivity.getSudoku().setClick((int)x,(int)y);
-        mainActivity.getTable().setSelectedCell(cella.getX(),cella.getY());
+        mainActivity.getTable().setSelectedCell(cella.getX(), cella.getY());
 
         return true;
     }
@@ -164,7 +191,6 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 
         if (posx < 0 || posx > 8) return null;
         if (posy < 0 || posy > 8) return null;
-
 
 
         return new Pair(posx, posy);
@@ -180,5 +206,6 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
     }
 
     public void update() {
+        invalidate();
     }
 }

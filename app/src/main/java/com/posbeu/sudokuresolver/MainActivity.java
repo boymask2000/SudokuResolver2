@@ -16,8 +16,13 @@ import android.widget.LinearLayout;
 
 import com.posbeu.sudokuresolver.core.Sudoku;
 import com.posbeu.sudokuresolver.core.Table;
+import com.posbeu.sudokuresolver.core.TableCell;
 
 public class MainActivity extends Activity {
+
+    public SurfacePanel getSurface() {
+        return surface;
+    }
 
     private SurfacePanel surface;
 
@@ -44,9 +49,8 @@ public class MainActivity extends Activity {
 
     private void setFixedVal(int n){
         if( Heap.selectedCell==null)return;
-        Pair p = Heap.selectedCell;
-        table.setFixed(p.getX(),p.getX(), n);
-
+        TableCell p = Heap.selectedCell;
+        table.setFixed(p.getX(),p.getY(), n);
     }
 
     private void handleButtons() {
@@ -54,7 +58,6 @@ public class MainActivity extends Activity {
         Button b1 = findViewById(R.id.b1);
         b1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 setFixedVal(1);
             }
         });
@@ -109,9 +112,23 @@ public class MainActivity extends Activity {
 
 
         Button solve = findViewById(R.id.solve);
-        b9.setOnClickListener(new View.OnClickListener() {
+        solve.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 sudoku.go();
+            }
+        });
+
+        Button clean = findViewById(R.id.clean);
+        clean.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sudoku.setClean();
+            }
+        });
+
+        Button cleanAll = findViewById(R.id.cleanAll);
+        cleanAll.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sudoku.cleanAll();
             }
         });
     }

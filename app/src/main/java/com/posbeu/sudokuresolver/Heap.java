@@ -2,6 +2,8 @@ package com.posbeu.sudokuresolver;
 
 import android.graphics.Bitmap;
 
+import com.posbeu.sudokuresolver.core.TableCell;
+
 /**
  * Created by giovanni on 6/2/16.
  */
@@ -12,7 +14,7 @@ public class Heap {
     private static MainActivity activity;
     private static float fact;
     private static Board board;
-    public static Pair selectedCell;
+    public static TableCell selectedCell;
 
 
     public static Bitmap getBitmap() {

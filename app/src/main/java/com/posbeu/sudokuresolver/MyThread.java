@@ -43,4 +43,16 @@ public class MyThread extends Thread {
             }
         }
     }
+
+    public void update() {
+  //      mcanvas = surfaceHolder.lockCanvas();
+
+        if (mcanvas != null) {
+            msurfacePanel.doDraw(mcanvas);
+
+    //        surfaceHolder.unlockCanvasAndPost(mcanvas);
+
+
+        }
+    }
 }
