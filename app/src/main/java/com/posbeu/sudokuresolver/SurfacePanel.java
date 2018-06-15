@@ -98,8 +98,8 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.BLACK);
-        canvas.drawRect(x - 1, 0, x + 2, screenWidth, paint);
-        canvas.drawRect(0, x - 1, screenWidth, x + 2, paint);
+        canvas.drawRect(x - 2, 0, x + 2, screenWidth, paint);
+        canvas.drawRect(0, x - 2, screenWidth, x + 2, paint);
     }
 
     public void goSolve() {
