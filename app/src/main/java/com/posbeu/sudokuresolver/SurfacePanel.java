@@ -97,7 +97,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
         int size = screenWidth;
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.BLACK);
+        paint.setColor(Color.BLUE);
         canvas.drawRect(x - 2, 0, x + 2, screenWidth, paint);
         canvas.drawRect(0, x - 2, screenWidth, x + 2, paint);
     }
@@ -182,9 +182,20 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 
         Heap.selectedCell = mainActivity.getTable().getCellByCoord(cella.getX(), cella.getY());
 
-//mainActivity.getSudoku().setClick((int)x,(int)y);
         mainActivity.getTable().setSelectedCell(cella.getX(), cella.getY());
         showPoup(x, y);
+
+
+/*
+        Table table = mainActivity.getTable();
+        if(!table.check())
+        {
+          //  TableCell c = table.getCellByCoord(cella.getX(), cella.getY());
+           c.setError(true);
+        }
+*/
+
+
         return true;
     }
 

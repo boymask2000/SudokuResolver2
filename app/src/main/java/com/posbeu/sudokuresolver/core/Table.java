@@ -210,6 +210,12 @@ public class Table {
 
                     fill(canvas, screenWidth, x, y, Color.LTGRAY);
                 }
+                if (cell.isError()) {
+                    x = i * fattX + 2;
+                    y = j * fattY + 2;
+
+                    fill(canvas, screenWidth, x, y, Color.RED);
+                }
 
 
                 if (!cell.isEmpty())

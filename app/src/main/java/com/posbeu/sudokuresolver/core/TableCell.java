@@ -7,6 +7,10 @@ public class TableCell {
 	private int valMin = 1;
 	private int valMax = 9;
 
+
+
+	private boolean error=false;
+
 	private int x;
 	private int y;
 
@@ -104,6 +108,12 @@ public class TableCell {
 
 	}
 
+	public boolean isError() {
+		return error;
+	}
 
+	public void setError(boolean error) {
+		this.error = error;
+	}
 
 }
