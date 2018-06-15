@@ -185,7 +185,7 @@ public class Table {
 
     public void draw(Canvas canvas, Paint mPaint, int screenWidth) {
         //  setTextSizeForWidth(mPaint,300, "1");
-        int cSize = screenWidth / 9;
+        int cSize = screenWidth / 10;
         mPaint.setTextSize(cSize);
         int fattX = screenWidth / 9;
         int fattY = screenWidth / 9;
@@ -203,6 +203,12 @@ public class Table {
                     y = j * fattY + 2;
 
                     fill(canvas, screenWidth, x, y, Color.GRAY);
+                }
+                if (cell.getValMax()==cell.getValMin()) {
+                    x = i * fattX + 2;
+                    y = j * fattY + 2;
+
+                    fill(canvas, screenWidth, x, y, Color.LTGRAY);
                 }
 
 

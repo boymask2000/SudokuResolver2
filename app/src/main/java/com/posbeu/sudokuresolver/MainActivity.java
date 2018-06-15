@@ -27,17 +27,13 @@ import static com.google.android.gms.ads.MobileAds.initialize;
 
 public class MainActivity extends Activity {
 
-    private RelativeLayout mainLayout;
-
-    public SurfacePanel getSurface() {
-        return surface;
+    public RelativeLayout getMainLayout() {
+        return mainLayout;
     }
 
+    private RelativeLayout mainLayout;
     private SurfacePanel surface;
-
-
     private Table table=new Table();
-
     private Sudoku sudoku;
 
     @Override
@@ -64,70 +60,8 @@ public class MainActivity extends Activity {
         
     }
 
-    private void setFixedVal(int n){
-        if( Heap.selectedCell==null)return;
-        TableCell p = Heap.selectedCell;
-        table.setFixed(p.getX(),p.getY(), n);
-
-    }
 
     private void handleButtons() {
-
-     /*   Button b1 = findViewById(R.id.b1);
-        b1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setFixedVal(1);
-            }
-        });
-        Button b2 = findViewById(R.id.b2);
-        b2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setFixedVal(2);
-            }
-        });
-        Button b3 = findViewById(R.id.b3);
-        b3.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setFixedVal(3);
-            }
-        });
-        Button b4 = findViewById(R.id.b4);
-        b4.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setFixedVal(4);
-            }
-        });
-        Button b5 = findViewById(R.id.b5);
-        b5.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setFixedVal(5);
-            }
-        });
-        Button b6 = findViewById(R.id.b6);
-        b6.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setFixedVal(6);
-            }
-        });
-        Button b7 = findViewById(R.id.b7);
-        b7.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setFixedVal(7);
-            }
-        });
-        Button b8 = findViewById(R.id.b8);
-        b8.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setFixedVal(8);
-            }
-        });
-        Button b9 = findViewById(R.id.b9);
-        b9.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setFixedVal(9);
-            }
-        });*/
-
 
         Button solve = findViewById(R.id.solve);
         solve.setOnClickListener(new View.OnClickListener() {
@@ -136,12 +70,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        Button clean = findViewById(R.id.clean);
-        clean.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                sudoku.setClean();
-            }
-        });
+
 
         Button cleanAll = findViewById(R.id.cleanAll);
         cleanAll.setOnClickListener(new View.OnClickListener() {
@@ -205,7 +134,6 @@ public class MainActivity extends Activity {
                 .getDefaultSharedPreferences(this);
 
         String livello = sharedPrefs.getString("Livello", "NULL");
-        ;
 
 
         Heap.getActivity().finish();
@@ -213,6 +141,10 @@ public class MainActivity extends Activity {
         startActivityForResult(i, RESULT_SETTINGS);
 
 
+    }
+
+    public SurfacePanel getSurface() {
+        return surface;
     }
 
     public Sudoku getSudoku() {

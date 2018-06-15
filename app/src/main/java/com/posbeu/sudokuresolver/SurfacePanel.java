@@ -50,7 +50,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
     private int screenHeight;
 
     private Board board;
-    private int numMosse = 0;
+
     private boolean goSolve = false;
 
 
@@ -71,20 +71,10 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
         holder.addCallback(this);
     }
 
-
-    private void solve() throws InterruptedException {
-
-
-    }
-
     @Override
     protected void onDraw(Canvas canvas) {
 
         doDraw(canvas);
-    }
-
-    void doDraw1(Canvas canvas) {
-
     }
 
     //***************************************************************************************
@@ -182,130 +172,28 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
+        if (event.getAction() != MotionEvent.ACTION_DOWN) return false;
+
         float x = event.getX();
         float y = event.getY();
 
         Pair cella = getCella(x, y);
+        if (cella == null) return false;
 
         Heap.selectedCell = mainActivity.getTable().getCellByCoord(cella.getX(), cella.getY());
 
 //mainActivity.getSudoku().setClick((int)x,(int)y);
         mainActivity.getTable().setSelectedCell(cella.getX(), cella.getY());
-        showPoup();
+        showPoup(x, y);
         return true;
     }
 
-    private void setFixedVal(int n) {
-        if (Heap.selectedCell == null) return;
-        TableCell p = Heap.selectedCell;
-        mainActivity.getTable().setFixed(p.getX(), p.getY(), n);
 
-        mPopupWindow.dismiss();
-        mPopupWindow.update();
+    private void showPoup(float x, float y) {
+        PopupNumberWindow popup = new PopupNumberWindow(mainActivity);
+        popup.show((int) x, (int) y);
     }
 
-    private PopupWindow mPopupWindow;
-
-    private void showPoup() {
-        LinearLayout lay = findViewById(R.id.buttons);
-
-
-        LayoutInflater inflater = (LayoutInflater) mainActivity.getSystemService(LAYOUT_INFLATER_SERVICE);
-
-        // Inflate the custom layout/view
-        float density = this.getResources().getDisplayMetrics().density;
-// create a focusable PopupWindow with the given layout and correct size
-
-
-        View customView = inflater.inflate(R.layout.custom, null);
-        handleButtons(customView);
-        mPopupWindow = new PopupWindow(customView, (int) density * 240, (int) density * 285, true);
-        mPopupWindow.setOutsideTouchable(true);
-        mPopupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-/*        mPopupWindow.setTouchInterceptor(new OnTouchListener() {
-
-
-
-            public boolean onTouch(View v, MotionEvent event)
-
-            {
-
-                if(event.getAction() == MotionEvent.ACTION_OUTSIDE)
-
-                {
-
-                    mPopupWindow.dismiss();
-
-                    return true;
-
-                }
-
-                return false;
-
-            }
-
-        });*/
-      mPopupWindow.showAtLocation(customView, Gravity.CENTER, 0, 0);
-    //    mPopupWindow.showAsDropDown(customView);
-    }
-
-    private void handleButtons(View v) {
-
-        Button b1 = v.findViewById(R.id.b1);
-        b1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setFixedVal(1);
-            }
-        });
-        Button b2 = v.findViewById(R.id.b2);
-        b2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setFixedVal(2);
-            }
-        });
-        Button b3 = v.findViewById(R.id.b3);
-        b3.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setFixedVal(3);
-            }
-        });
-        Button b4 = v.findViewById(R.id.b4);
-        b4.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setFixedVal(4);
-            }
-        });
-        Button b5 = v.findViewById(R.id.b5);
-        b5.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setFixedVal(5);
-            }
-        });
-        Button b6 = v.findViewById(R.id.b6);
-        b6.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setFixedVal(6);
-            }
-        });
-        Button b7 = v.findViewById(R.id.b7);
-        b7.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setFixedVal(7);
-            }
-        });
-        Button b8 = v.findViewById(R.id.b8);
-        b8.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setFixedVal(8);
-            }
-        });
-        Button b9 = v.findViewById(R.id.b9);
-        b9.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setFixedVal(9);
-            }
-        });
-    }
 
     private Pair getCella(float x, float y) {
         int posx = (int) (x * 9 / screenWidth);
