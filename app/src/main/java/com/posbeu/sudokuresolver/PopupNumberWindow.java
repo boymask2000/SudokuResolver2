@@ -42,7 +42,7 @@ setContentView(customView);
     }
 
     public void show(int x, int y) {
-        System.out.println("show");
+
         showAtLocation(ctx.findViewById(R.id.layout), Gravity.CENTER, x, y);
       //  showAtLocation(customView, Gravity.CENTER, x, y);
     }
