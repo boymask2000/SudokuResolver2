@@ -197,29 +197,27 @@ public class Table {
                 int y = j * fattY + 2;
                 fill(canvas, screenWidth, x, y, Color.WHITE);
 
+                if( ((i/3+j/3))% 2==0)
+                {
+                    fill(canvas, screenWidth, x, y, Color.LTGRAY);
+                }
+
 
                 if (selectedCell != null && selectedCell.equals(cell)) {
-                    x = i * fattX + 2;
-                    y = j * fattY + 2;
+
+                    fill(canvas, screenWidth, x, y, Color.DKGRAY);
+                }
+                if (cell.getValMax() == cell.getValMin()) {
 
                     fill(canvas, screenWidth, x, y, Color.GRAY);
                 }
-                if (cell.getValMax()==cell.getValMin()) {
-                    x = i * fattX + 2;
-                    y = j * fattY + 2;
-
-                    fill(canvas, screenWidth, x, y, Color.LTGRAY);
-                }
                 if (cell.isError()) {
-                    x = i * fattX + 2;
-                    y = j * fattY + 2;
 
                     fill(canvas, screenWidth, x, y, Color.RED);
                 }
 
 
-                if (!cell.isEmpty())
-                {
+                if (!cell.isEmpty()) {
 
                     canvas.drawText("" + cell.getCurrentVal(), i * fattX + 2, (j + 1) * fattY - 4, mPaint);
                 }

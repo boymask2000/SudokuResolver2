@@ -84,8 +84,8 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
             canvas.drawLine(i * step, 0, i * step, screenWidth, mPaint);
             canvas.drawLine(0, i * step, screenWidth, i * step, mPaint);
         }
-        fill(canvas, screenWidth, 3 * step);
-        fill(canvas, screenWidth, 6 * step);
+   //     fill(canvas, screenWidth, 3 * step);
+    //    fill(canvas, screenWidth, 6 * step);
 
         Table table = mainActivity.getTable();
         table.draw(canvas, mPaint, screenWidth);
