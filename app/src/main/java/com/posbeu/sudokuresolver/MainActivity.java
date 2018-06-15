@@ -96,8 +96,6 @@ public class MainActivity extends Activity {
         switch (item.getItemId()) {
             case R.id.viewFinal:
 
-                Intent gameIntent = new Intent(this, ShowImageActivity.class);
-                startActivity(gameIntent);
 
                 return true;
             case R.id.solve:
