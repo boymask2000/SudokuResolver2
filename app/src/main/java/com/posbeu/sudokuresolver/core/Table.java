@@ -144,7 +144,7 @@ public class Table {
     }
 
     public void setSelectedCell(TableCell c) {
-        System.out.println(c);
+
         selectedCell = c;
         main.update();
 
@@ -234,14 +234,5 @@ public class Table {
         canvas.drawRect(x, y, x + size, y + size, paint);
     }
 
-    public void dump() {
-        for (int i = 0; i < 9; i++)
-            for (int j = 0; j < 9; j++) {
-
-                TableCell cell = table[i][j];
-                System.out.print("-"+i+" "+j+" :"+ cell.getCurrentVal());
-
-            }System.out.println();
-    }
 
 }

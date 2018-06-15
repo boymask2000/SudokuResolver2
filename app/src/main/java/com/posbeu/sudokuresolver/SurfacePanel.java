@@ -94,12 +94,13 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 
 
     private void fill(Canvas canvas, int screenWidth, int x) {
+        int delta=3;
         int size = screenWidth;
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.BLUE);
-        canvas.drawRect(x - 2, 0, x + 2, screenWidth, paint);
-        canvas.drawRect(0, x - 2, screenWidth, x + 2, paint);
+        paint.setColor(Color.RED);
+        canvas.drawRect(x - delta, 0, x + delta, screenWidth, paint);
+        canvas.drawRect(0, x - delta, screenWidth, x + delta, paint);
     }
 
     public void goSolve() {
