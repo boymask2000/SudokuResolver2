@@ -62,8 +62,7 @@ public class Table {
     }
 
     private boolean checkQuad(int i, int j) {
-        if (table[i][j].isEmpty())
-            return true;
+
         int vals[] = new int[10];
         vals[table[i][j].getCurrentVal()]++;
         vals[table[i + 1][j].getCurrentVal()]++;

@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.SystemClock;
 import android.util.AttributeSet;
@@ -39,21 +40,11 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback {
     private final Context context;
     private final MainActivity mainActivity;
-
-
-    public MyThread getThread() {
-        return mythread;
-    }
-
     private MyThread mythread;
     private int screenWidth;
     private int screenHeight;
-
     private Board board;
-
     private boolean goSolve = false;
-
-
     private int i = 0;
     private Paint mPaint = new Paint();
 
@@ -62,9 +53,10 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
         context = ctx;
         this.mainActivity = mainActivity;
         board = new Board(context);
+//setBackgroundColor(Color.RED);
 
         getDims();
-
+        setClipBounds(new Rect(0,0,screenWidth,screenWidth));
 
         SurfaceHolder holder = getHolder();
 
@@ -84,8 +76,8 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
             canvas.drawLine(i * step, 0, i * step, screenWidth, mPaint);
             canvas.drawLine(0, i * step, screenWidth, i * step, mPaint);
         }
-   //     fill(canvas, screenWidth, 3 * step);
-    //    fill(canvas, screenWidth, 6 * step);
+        //     fill(canvas, screenWidth, 3 * step);
+        //    fill(canvas, screenWidth, 6 * step);
 
         Table table = mainActivity.getTable();
         table.draw(canvas, mPaint, screenWidth);
@@ -94,7 +86,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 
 
     private void fill(Canvas canvas, int screenWidth, int x) {
-        int delta=3;
+        int delta = 3;
         int size = screenWidth;
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL);

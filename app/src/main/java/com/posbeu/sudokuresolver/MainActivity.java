@@ -27,9 +27,6 @@ import static com.google.android.gms.ads.MobileAds.initialize;
 
 public class MainActivity extends Activity {
 
-    public RelativeLayout getMainLayout() {
-        return mainLayout;
-    }
 
     private RelativeLayout mainLayout;
     private SurfacePanel surface;
@@ -66,6 +63,10 @@ public class MainActivity extends Activity {
         Button solve = findViewById(R.id.solve);
         solve.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if(!table.check()){
+                    PopupMessage.info(MainActivity.this, "Combinazione illegale");
+                }
+
                 sudoku.go();
             }
         });
@@ -99,8 +100,7 @@ public class MainActivity extends Activity {
 
                 return true;
             case R.id.solve:
-
-                surface.goSolve();
+               surface.goSolve();
 
                 return true;
             case R.id.opzioni:

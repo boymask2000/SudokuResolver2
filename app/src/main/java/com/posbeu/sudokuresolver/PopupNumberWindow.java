@@ -28,12 +28,11 @@ public class PopupNumberWindow extends android.widget.PopupWindow {
         setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
 
 
-
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
 
         customView = inflater.inflate(R.layout.custom, null);
 
-setContentView(customView);
+        setContentView(customView);
         setOutsideTouchable(true);
         setFocusable(true);
         setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -44,7 +43,7 @@ setContentView(customView);
     public void show(int x, int y) {
 
         showAtLocation(ctx.findViewById(R.id.layout), Gravity.CENTER, x, y);
-      //  showAtLocation(customView, Gravity.CENTER, x, y);
+        //  showAtLocation(customView, Gravity.CENTER, x, y);
     }
 
     private void handleButtons(View v) {
@@ -108,6 +107,7 @@ setContentView(customView);
         clean.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ctx.getSudoku().setClean();
+                dismiss();
             }
         });
     }
