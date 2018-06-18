@@ -43,8 +43,8 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
     private MyThread mythread;
     private int screenWidth;
     private int screenHeight;
-    private Board board;
-    private boolean goSolve = false;
+ //   private Board board;
+   // private boolean goSolve = false;
     private int i = 0;
     private Paint mPaint = new Paint();
 
@@ -52,7 +52,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
         super(ctx, attrSet);
         context = ctx;
         this.mainActivity = mainActivity;
-        board = new Board(context);
+   //     board = new Board(context);
 //setBackgroundColor(Color.RED);
 
         getDims();
@@ -94,11 +94,6 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
         canvas.drawRect(x - delta, 0, x + delta, screenWidth, paint);
         canvas.drawRect(0, x - delta, screenWidth, x + delta, paint);
     }
-
-    public void goSolve() {
-        goSolve = true;
-    }
-
 
     public int getStatusBarHeight() {
         int result = 0;

@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.posbeu.sudokuresolver.core.Sudoku;
 import com.posbeu.sudokuresolver.core.Table;
@@ -27,23 +29,18 @@ import static com.google.android.gms.ads.MobileAds.initialize;
 
 public class MainActivity extends Activity {
 
-
-    private RelativeLayout mainLayout;
     private SurfacePanel surface;
     private Table table=new Table();
     private Sudoku sudoku;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_main1);
-        mainLayout = (RelativeLayout) findViewById(R.id.layout);
 
-        MobileAds.initialize(this, "ca-app-pub-6114671792914206/6245333638");
-
-
+        setBanner();
 
         Heap.setMainActivity(this);
         LinearLayout lay = findViewById(R.id.board);
@@ -55,6 +52,13 @@ public class MainActivity extends Activity {
 
         sudoku = new Sudoku(this);
         
+    }
+    private void setBanner(){
+        MobileAds.initialize(this, "ca-app-pub-6114671792914206/6245333638");
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
     }
 
 
@@ -100,7 +104,7 @@ public class MainActivity extends Activity {
 
                 return true;
             case R.id.solve:
-               surface.goSolve();
+        //       surface.goSolve();
 
                 return true;
             case R.id.opzioni:
