@@ -19,10 +19,6 @@ public class Sudoku {
         table.setMain(main);
 
         lista = buildPairs();
-//
-//		table.setFixed(0, 0, 5);
-
-
     }
 
     public void go() {
@@ -81,19 +77,6 @@ public class Sudoku {
         }
 
     }
-
-
-
-/*	public void setClick(int x, int y) {
-
-		TableCell c = table.getCellByCoord(x, y);
-
-		table.setSelectedCell(c);
-		main.update();
-
-	}*/
-
-
 
     public void setSetFree() {
         table.setFree();
