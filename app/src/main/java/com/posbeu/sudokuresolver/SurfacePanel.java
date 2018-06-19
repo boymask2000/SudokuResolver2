@@ -59,6 +59,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
         setClipBounds(new Rect(0,0,screenWidth,screenWidth));
 
         SurfaceHolder holder = getHolder();
+        holder.setFixedSize(screenWidth, screenWidth);
 
         holder.addCallback(this);
     }

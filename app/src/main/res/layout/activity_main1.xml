@@ -1,58 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    tools:layout_editor_absoluteY="73dp">
 
 
     <LinearLayout
         android:id="@+id/board"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/buttons"
+    <Button
+        android:id="@+id/solve"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Solve"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/board" />
 
-        android:orientation="vertical">
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#c2300f"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/solve"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Solve" />
-
-            <Button
-                android:id="@+id/cleanAll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Clean All" />
-        </LinearLayout>
+    <Button
+        android:id="@+id/cleanAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:text="Clean All"
+        app:layout_constraintStart_toEndOf="@+id/solve"
+        app:layout_constraintTop_toBottomOf="@+id/board" />
 
 
-        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/adView"
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-            ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-6114671792914206/6245333638"></com.google.android.gms.ads.AdView>
-    </LinearLayout>
-</RelativeLayout>
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-6114671792914206/6245333638"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toBottomOf="@+id/cleanAll"></com.google.android.gms.ads.AdView>
+
+</android.support.constraint.ConstraintLayout>
 
